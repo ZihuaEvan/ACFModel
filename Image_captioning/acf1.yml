@@ -1,0 +1,60 @@
+#155.69.151.245
+caption_model: ACF
+id: ACF1
+gpu: 0,1,2,3
+noamopt: true
+noamopt_warmup: 20000
+label_smoothing: 0.0
+input_json: data/cocoacf.json
+input_label_h5: data/cocoacf_label.h5
+cached_tokens: coco-train-acf-idxs
+input_att_dir: data/SwinL_features
+seq_per_img: 5
+batch_size: 40
+learning_rate: 0.00005
+reduce_on_plateau: True
+
+# Notice: because I'm to lazy, I reuse the option name for RNNs to set the hyperparameters for transformer:
+# N=num_layers
+# d_model=input_encoding_size
+# d_ff=rnn_size
+
+# will be ignored
+num_layers: 6
+att_feat_size: 1536
+
+# Transformer config
+vis_ga_index: 1
+ga_index: 1
+N_enc: 3
+N_dec: 6
+N_group: 3
+d_model: 512
+d_ff: 512
+num_att_heads: 8
+dropout: 0.1
+
+learning_rate_decay_start: 0
+scheduled_sampling_start: -1
+save_checkpoint_every: 5000
+rp_decay_every: 5000
+language_eval: 1
+val_images_use: 4800
+train_sample_n: 5
+
+
+self_critical_after: -1
+structure_after: 20
+noamopt_rl: false
+learning_rate_rl: 0.000005
+learning_rate_decay_start_rl: -1
+reduce_on_plateau_rl: true
+
+train_sample_n_rl: 5
+structure_loss_weight: 1
+structure_loss_type: new_self_critical
+
+max_epochs: 45
+start_from: log_acf1
+#checkpoint_path: log_acf1
+#cp_id: 30
